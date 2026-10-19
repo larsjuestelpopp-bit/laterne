@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#FFF6E9">
+<meta name="description" content="Laterne – deine ruhige Begleiterin über helle Wege nach Hause. Gütersloh.">
+<title>Laterne · Gütersloh</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="vendor/leaflet.css">
+<link rel="stylesheet" href="styles.css?v=1.0.0">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+ <defs>
+  <radialGradient id="lglow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFE7A3"/><stop offset=".45" stop-color="#FFC861" stop-opacity=".55"/><stop offset="1" stop-color="#FFB547" stop-opacity="0"/></radialGradient>
+  <linearGradient id="cloak" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2F3D78"/><stop offset="1" stop-color="#1E2856"/></linearGradient>
+  <symbol id="luna" viewBox="0 0 120 160">
+   <g class="l-body">
+    <ellipse class="l-shadow" cx="58" cy="155" rx="26" ry="4" fill="#3E2C1A" opacity=".14"/>
+    <g class="l-legs"><path class="leg1" d="M49 144 v9 h7 v-9z" fill="#6B3E22"/><path class="leg2" d="M60 144 v9 h7 v-9z" fill="#6B3E22"/></g>
+    <path d="M40 146 Q42 104 58 96 Q74 104 76 146 Z" fill="#F6E7C6"/>
+    <path d="M26 148 Q30 96 46 84 L58 92 L70 84 Q86 96 90 148 Q80 140 74 146 L70 100 Q58 94 46 100 L42 146 Q36 140 26 148Z" fill="url(#cloak)"/>
+    <path d="M30 140 Q36 132 42 140 M78 140 Q84 132 88 140" stroke="#C9A35A" stroke-width="1.6" fill="none"/>
+    <path d="M45 106 h26 v5 h-26z" fill="#8A5A2E"/>
+    <g class="l-head">
+     <path d="M34 66 Q30 34 58 30 Q86 34 82 66 Q86 88 80 100 Q72 92 74 72 L42 72 Q44 92 36 100 Q30 88 34 66Z" fill="#2E1E18"/>
+     <ellipse cx="58" cy="64" rx="17" ry="19" fill="#E9B98F"/>
+     <path d="M40 58 Q44 38 60 38 Q74 40 76 56 Q66 46 52 50 Q46 52 40 58Z" fill="#2E1E18"/>
+     <circle cx="38" cy="48" r="5" fill="#2E1E18"/><circle cx="78" cy="50" r="5" fill="#2E1E18"/><circle cx="36" cy="62" r="4.5" fill="#3A271E"/><circle cx="80" cy="64" r="4.5" fill="#3A271E"/>
+     <circle cx="74" cy="46" r="2.2" fill="#E8B24A"/>
+     <g class="l-eyes"><path d="M49 64 q3 -3 6 0" stroke="#2B1E19" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M62 64 q3 -3 6 0" stroke="#2B1E19" stroke-width="2.2" fill="none" stroke-linecap="round"/></g>
+     <circle cx="47" cy="71" r="3.4" fill="#E58C76" opacity=".45"/><circle cx="69" cy="71" r="3.4" fill="#E58C76" opacity=".45"/>
+     <path class="l-mouth" d="M54 75 Q58 78 62 75" stroke="#8A4B3A" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    </g>
+    <g class="l-arm"><path d="M74 100 Q88 104 92 114" stroke="#33407A" stroke-width="7" fill="none" stroke-linecap="round"/><circle cx="92" cy="114" r="3.2" fill="#E9B98F"/>
+     <g class="l-lantern">
+      <circle class="l-glow" cx="96" cy="132" r="36" fill="url(#lglow)"/>
+      <path d="M92 114 Q96 110 100 114 L98 118 h-4z" fill="none" stroke="#3A2A1E" stroke-width="1.6"/>
+      <rect x="89" y="117" width="14" height="3" rx="1" fill="#3A2A1E"/>
+      <ellipse cx="96" cy="131" rx="11" ry="12" fill="#FFD27A"/>
+      <ellipse class="l-flame" cx="96" cy="131" rx="7" ry="8" fill="#FFF4C8"/>
+      <path d="M86 126 h20 M85 131 h22 M86 136 h20" stroke="#E8A23A" stroke-width=".9" opacity=".7"/>
+      <rect x="89" y="142" width="14" height="3" rx="1" fill="#3A2A1E"/>
+     </g></g>
+   </g>
+  </symbol>
+ </defs>
+</svg>
+
+<!-- 1 START -->
+<section id="splash" class="screen active" aria-label="Start">
+ <div class="sky"><div class="stars"></div><div class="moon"></div></div>
+ <div class="splash-light" id="splashLight"></div>
+ <div class="splash-center">
+  <div class="hero"><img src="img/luna-hero.webp" alt="Luna mit ihrer leuchtenden Laterne" width="900" height="900" decoding="async" fetchpriority="high"></div>
+  <h1 class="brand">Laterne</h1>
+  <p class="tagline">Ein helles Licht für deinen Heimweg.</p>
+  <button id="startBtn" class="btn btn-primary btn-start" type="button">Los geht’s</button>
+ </div>
+ <p class="splash-foot">Gütersloh · alles bleibt auf deinem Handy</p>
+</section>
+
+<!-- 2 ONBOARDING -->
+<section id="onboarding" class="screen" aria-label="Kennenlernen">
+ <div class="ob-luna"><img class="ob-portrait" src="img/luna-portrait.webp" alt="Luna" width="560" height="496"><div class="bubble" id="obBubble">Hallo! Ich bin Luna. Wie darf ich dich nennen?</div></div>
+ <form id="obForm" class="card ob-card" novalidate autocomplete="on">
+  <div class="ob-step active" data-step="0">
+   <label for="obName">Dein Vorname</label>
+   <input id="obName" name="given-name" autocomplete="given-name" maxlength="40" placeholder="z. B. Anna" required>
+  </div>
+  <div class="ob-step" data-step="1">
+   <label for="obContact">Wer soll im Notfall Bescheid bekommen?</label>
+   <input id="obContact" maxlength="40" placeholder="z. B. Lars" required>
+   <label for="obPhone">Handynummer dieser Person</label>
+   <input id="obPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="0171 1234567" required>
+   <p class="hint" id="obPhoneHint"></p>
+  </div>
+  <div class="ob-step" data-step="2">
+   <p class="ob-test">Schick jetzt eine <b>Probe-SMS</b> an <span id="obContactName"></span>. So wisst ihr beide, dass es klappt.</p>
+   <a id="obTestSms" class="btn btn-soft" href="#">✉️ Probe-SMS öffnen</a>
+   <p class="hint">Dein Handy öffnet die SMS-App. Absenden musst du selbst.</p>
+  </div>
+  <div class="ob-nav">
+   <button type="button" class="btn btn-ghost" id="obBack" hidden>Zurück</button>
+   <button type="submit" class="btn btn-primary" id="obNext">Weiter</button>
+  </div>
+  <div class="dots"><i class="on"></i><i></i><i></i></div>
+ </form>
+ <p class="privacy">🔒 Alles bleibt auf deinem Handy. Kein Konto, kein Server, kein Tracking.</p>
+</section>
+
+<!-- 3 HOME -->
+<section id="home" class="screen" aria-label="Karte">
+ <div id="map" aria-label="Karte"></div>
+ <div class="loc-pill" id="locPill" role="status">📍 Standort wird gesucht…</div>
+ <button class="icon-btn info-btn" id="infoBtn" aria-label="Infos und Einstellungen">☰</button>
+ <div class="home-sheet">
+  <div class="luna-row"><svg class="luna luna-sm" aria-hidden="true"><use href="#luna"/></svg><div class="bubble" id="homeBubble">Schön, dass du da bist.</div></div>
+  <button class="btn btn-primary btn-xl" id="walkBtn">🏮 Heimweg starten</button>
+  <div class="quick">
+   <button class="qbtn" id="fakeBtn"><span>📞</span>Fake-Anruf</button>
+   <button class="qbtn" id="helpBtn"><span>🤝</span>Hilfe vor Ort</button>
+   <button class="qbtn sos" id="sosBtn" aria-label="Notfall: 2 Sekunden halten"><svg class="ring" viewBox="0 0 44 44"><circle cx="22" cy="22" r="19"/></svg><span>🆘</span>Halten</button>
+  </div>
+ </div>
+</section>
+
+<!-- PLANNER -->
+<section id="planner" class="screen sheet-screen" aria-label="Ziel wählen">
+ <header class="bar"><button class="icon-btn" data-back aria-label="Zurück">←</button><h2>Wohin geht’s?</h2></header>
+ <div class="pad">
+  <input id="searchInput" type="search" placeholder="Adresse oder Ort in Gütersloh" autocomplete="off" enterkeyhint="search">
+  <div id="planMap"></div>
+  <div id="savedList" class="list"></div>
+  <div id="searchResults" class="list"></div>
+  <div id="routeBox" hidden>
+   <h3>Deine Wege</h3>
+   <p class="hint" id="litNote"></p>
+   <div id="routeList" class="list"></div>
+   <label class="row-check"><input type="checkbox" id="shareOnStart" checked> Weg beim Start an <span class="cName"></span> schicken</label>
+   <div class="seg" id="shareVia"><button type="button" class="on" data-v="sms">SMS</button><button type="button" data-v="wa">WhatsApp</button></div>
+   <button class="btn btn-primary btn-xl" id="goBtn" disabled>Los, Luna kommt mit</button>
+   <button class="btn btn-ghost" id="saveHomeBtn">Als „Zuhause“ speichern</button>
+  </div>
+ </div>
+</section>
+
+<!-- WALK -->
+<section id="walk" class="screen" aria-label="Unterwegs">
+ <div id="walkMap"></div>
+ <div class="walk-top"><div class="timer" id="walkTimer">--:--</div><div class="walk-dest" id="walkDest"></div></div>
+ <div class="walk-sheet">
+  <div class="path-track"><div class="path-fill" id="pathFill"></div><svg class="luna luna-walker" id="walker" aria-hidden="true"><use href="#luna"/></svg><span class="home-icon">🏠</span></div>
+  <div class="bubble bubble-wide" id="walkBubble">Ich bin bei dir.</div>
+  <div class="walk-actions">
+   <button class="btn btn-soft" id="plus10">+10 Min</button>
+   <button class="btn btn-primary" id="arrivedBtn">Bin angekommen</button>
+  </div>
+  <div class="walk-mini">
+   <button class="qbtn" id="fakeBtn2"><span>📞</span>Anruf</button>
+   <button class="qbtn" id="cancelWalk"><span>✕</span>Beenden</button>
+   <button class="qbtn sos" id="sosBtn2" aria-label="Notfall: 2 Sekunden halten"><svg class="ring" viewBox="0 0 44 44"><circle cx="22" cy="22" r="19"/></svg><span>🆘</span>Halten</button>
+  </div>
+  <p class="hint center" id="wakeNote"></p>
+ </div>
+</section>
+
+<!-- CHECK / COUNTDOWN -->
+<section id="check" class="screen overlay" aria-label="Alles okay?">
+ <svg class="luna" aria-hidden="true"><use href="#luna"/></svg>
+ <h2 id="checkTitle">Bist du gut angekommen?</h2>
+ <div class="count" id="checkCount">60</div>
+ <p id="checkText">Wenn du nicht antwortest, bereite ich eine Nachricht an deinen Kontakt vor.</p>
+ <button class="btn btn-primary btn-xl" id="checkOk">Ja, alles gut</button>
+ <button class="btn btn-soft" id="checkMore">Ich brauche noch 10 Minuten</button>
+</section>
+
+<!-- ALARM -->
+<section id="alarm" class="screen overlay alarm" aria-label="Notfall">
+ <h2 id="alarmTitle">Notfall wird vorbereitet</h2>
+ <div class="count" id="alarmCount">5</div>
+ <button class="btn btn-ghost-light btn-xl" id="alarmCancel">Abbrechen</button>
+ <div id="alarmReady" hidden>
+  <a class="btn btn-danger btn-xl" id="alarmSms" href="#">✉️ Notfall-SMS senden</a>
+  <a class="btn btn-danger-soft btn-xl" href="tel:112">📞 112 anrufen</a>
+  <a class="btn btn-danger-soft" href="tel:110">Polizei 110</a>
+  <button class="btn btn-ghost-light" id="alarmClose">Schließen</button>
+  <p class="hint light">Tippe auf „Senden“ in deiner SMS-App. Laterne kann nicht selbst senden.</p>
+ </div>
+</section>
+
+<!-- ARRIVED -->
+<section id="arrived" class="screen overlay arrived" aria-label="Angekommen">
+ <div class="burst"></div>
+ <svg class="luna luna-big happy" aria-hidden="true"><use href="#luna"/></svg>
+ <h2 id="arrivedTitle">Du bist zu Hause.</h2>
+ <p>Ich bin stolz auf dich. Schlaf gut.</p>
+ <a class="btn btn-primary btn-xl" id="arrivedSms" href="#">Bin gut angekommen 🏠</a>
+ <a class="btn btn-soft" id="arrivedWa" href="#" target="_blank" rel="noopener">per WhatsApp</a>
+ <button class="btn btn-ghost" id="arrivedClose">Fertig</button>
+</section>
+
+<!-- FAKE CALL -->
+<section id="fakecall" class="screen fake" aria-label="Eingehender Anruf">
+ <div class="fc-top"><p class="fc-label">Eingehender Anruf</p><h2 id="fcName">Mama</h2><p class="fc-sub">Mobil</p><p class="fc-timer" id="fcTimer" hidden>00:00</p></div>
+ <div class="fc-avatar" id="fcAvatar">M</div>
+ <div class="fc-actions"><button class="fc-btn decline" id="fcDecline" aria-label="Ablehnen">✆</button><button class="fc-btn accept" id="fcAccept" aria-label="Annehmen">✆</button></div>
+</section>
+
+<!-- HELP -->
+<section id="help" class="screen sheet-screen" aria-label="Hilfe vor Ort">
+ <header class="bar"><button class="icon-btn" data-back aria-label="Zurück">←</button><h2>Hilfe in <span class="cityName"></span></h2></header>
+ <div class="pad" id="helpList"></div>
+</section>
+
+<!-- INFO -->
+<section id="info" class="screen sheet-screen" aria-label="Infos">
+ <header class="bar"><button class="icon-btn" data-back aria-label="Zurück">←</button><h2>Ehrlich gesagt</h2></header>
+ <div class="pad">
+  <div class="card"><h3>Was Laterne kann – und was nicht</h3>
+   <ul class="honest">
+    <li>🔆 <b>Bildschirm an lassen.</b> Laterne ist eine Web-App. Unterwegs halte ich den Bildschirm wach. Wenn du ihn ausschaltest oder die App wechselst, pausiert Android mich. Timer und Nachfragen laufen dann erst weiter, wenn du zurückkommst.</li>
+    <li>✉️ <b>SMS musst du selbst senden.</b> Ich kann eine Nachricht nur fertig vorbereiten. Den Senden-Knopf drückst du.</li>
+    <li>📍 <b>Standort ehrlich.</b> Ich zeige dir, wie genau dein Standort ist. Ich rate nie einen Ort.</li>
+    <li>🗺️ <b>Helle Wege</b> basieren auf OpenStreetMap-Daten. Nicht jede Laterne ist eingetragen.</li>
+    <li>🚨 Bei akuter Gefahr: <b>110</b> oder <b>112</b>.</li>
+   </ul></div>
+  <div class="card"><h3>Tipp für dein Pixel</h3><p>Pixel-Handys haben den <b>Sicherheitscheck</b> eingebaut (App „Persönliche Sicherheit“). Er läuft auch bei ausgeschaltetem Bildschirm und kann deinen Kontakten automatisch Bescheid geben. Zusammen mit Laterne bist du doppelt gut begleitet.</p></div>
+  <div class="card"><h3>Deine Daten</h3>
+   <label for="setName">Dein Name</label><input id="setName">
+   <label for="setContact">Kontakt</label><input id="setContact">
+   <label for="setPhone">Nummer</label><input id="setPhone" type="tel">
+   <label for="setCaller">Name beim Fake-Anruf</label><input id="setCaller">
+   <button class="btn btn-primary" id="saveSettings">Speichern</button>
+   <button class="btn btn-ghost" id="resetAll">Alles löschen</button>
+  </div>
+  <p class="hint center" id="versionNote"></p>
+ </div>
+</section>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="vendor/leaflet.js"></script>
+<script src="cities/guetersloh.js?v=1.0.0"></script>
+<script src="app.js?v=1.0.0"></script>
+</body>
+</html>
