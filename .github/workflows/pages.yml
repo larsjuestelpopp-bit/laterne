@@ -1,0 +1,24 @@
+name: Pages
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Binärdateien aus base64 wiederherstellen
+        run: |
+          mkdir -p _site
+          rsync -a --exclude '.git' --exclude '.github' --exclude '_site' ./ _site/
+          find _site -name '*.b64' | while read f; do base64 -d "$f" > "${f%.b64}"; rm "$f"; done
+          touch _site/.nojekyll
+          ls -R _site
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
+          publish_branch: gh-pages
